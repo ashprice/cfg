@@ -1,0 +1,6 @@
+[shell]
+program = "/usr/bin/fish"
+
+[window]
+decorations_theme_variant = "Dark"
+
