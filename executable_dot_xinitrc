@@ -1,0 +1,7 @@
+#!/bin/bash
+
+[ -f "$HOME/.xprofile" ] && . ~/.xprofile && xrdb -merge -I$HOME ~/.Xresources
+
+export ANKI_NOHIGHDPI=1
+export TZ='Europe/London'
+exec dwm
