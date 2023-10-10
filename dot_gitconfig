@@ -1,0 +1,6 @@
+[core]
+	editor = nvim
+	excludesfile = /home/hearth/.config/git/.gitignore_global
+[user]
+	email = eisleggje@gmail.com
+	name = ashprice
