@@ -1,7 +1,10 @@
-#!/bin/bash
+#!/usr/bin/fish
 
-[ -f "$HOME/.xprofile" ] && . ~/.xprofile && xrdb -merge -I$HOME ~/.Xresources
+if test -f "$HOME/.xprofile"
+  source "$HOME/.xprofile"
+  xrdb --merge -I$HOME ~/.Xresources
+end
 
-export ANKI_NOHIGHDPI=1
-export TZ='Europe/London'
+set -x ANKI_NOHIGHDPI 1
+set -x TZ 'Europe/London'
 exec dwm
