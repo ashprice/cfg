@@ -1,0 +1,62 @@
+ncmpcpp_directory = "~/.config/ncmpcpp"
+mpd_music_dir = "/store/music/local"
+
+user_interface = "alternative"
+colors_enabled = "yes"
+
+message_delay_time = "1"
+
+visualizer_type = "spectrum"
+visualizer_look = "|●"
+visualizer_data_source = "/tmp/mpd.fifo"
+visualizer_output_name = "my_fifo"
+visualizer_in_stereo = "yes"
+visualizer_spectrum_gain = 0
+visualizer_spectrum_hz_min = 20
+visualizer_spectrum_hz_max = 23000
+visualizer_spectrum_dft_size = 1
+visualizer_fps = 60
+
+song_list_format = {$4%a - }{%t}|{$8%f$9}$R{$3(%l)$9}
+song_columns_list_format = (20)[]{a} (5)[]{n} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_status_format = $b{{$8"%t"}} $3by {$4%a{ $3in $7%b{ (%y)}} $3}|{$8%f}
+song_library_format = {%n - }{%t}|{%f}
+show_duplicate_tags = "no"
+
+autocenter_mode = "yes"
+centered_cursor = "yes"
+
+search_engine_display_mode = "columns"
+
+header_visibility = "yes"
+statusbar_visibility = "yes"
+titles_visibility = "no"
+
+#alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
+#alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
+current_item_prefix = $(cyan)$r$b
+current_item_suffix = $/r$(end)$/b
+current_item_inactive_column_prefix = $(magenta)$r
+current_item_inactive_column_suffix = $/r$(end)
+now_playing_prefix = $(red)$r
+now_playing_suffix = $/r$(end)
+playlist_display_mode = columns
+playlist_editor_display_mode = columns
+browser_display_mode = columns
+progressbar_look = "=>-"
+media_library_primary_tag = album_artist
+media_library_albums_split_by_date = yes
+startup_screen = "media_library"
+display_volume_level = no
+ignore_leading_the = yes
+external_editor = nvim
+use_console_editor = yes
+empty_tag_color = magenta
+main_window_color = magenta
+color1 = "white"
+color2 = "magenta"
+progressbar_color = black
+progressbar_elapsed_color = magenta
+statusbar_color = red
+statusbar_time_color = cyan:b
+execute_on_song_change="pkill -RTMIN+11 dwmblocks"
