@@ -1,0 +1,14 @@
+#!/usr/bin/fish
+
+chngbg &
+xset r rate 300 50 &
+unclutter &
+picom --config ~/.config/picom/picom.conf &
+dunst &
+setxkbmap -layout gb &
+ibus-daemon -drxR &
+xrdb -load ~/.Xresources &
+xrandr --dpi 218 &
+if test -n "$xrdbpid"
+  wait "$xrdbpid"
+end
