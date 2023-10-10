@@ -1,0 +1,29 @@
+theme = "base16_transparent"
+
+[editor]
+bufferline = "multiple"
+color-modes = true
+text-width = 120
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
+[editor.statusline]
+right = ["diagnostics", "selections", "position", "position-percentage",
+    "total-line-numbers", "file-encoding"]
+
+[editor.cursor-shape]
+normal = "block"
+insert = "underline"
+select = "block"
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'<' = '>'
+
+
