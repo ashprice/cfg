@@ -1,0 +1,243 @@
+directory: /store/music/local
+library: /store/music/library.db
+
+pluginpath:
+  - /home/hearth/.config/beets/beets-filetote/build/lib/beetsplug
+import:
+  move: yes
+  write: yes
+  from_scratch: no
+  timid: yes
+  group_albums: no
+  autotag: yes
+  duplicate_action: ask
+
+plugins: the chroma fromfilename fetchart bandcamp embedart scrub discogs edit mbsync parentwork fish albumtypes types filetote duplicates smartplaylist mpdupdate inline replaygain play fuzzy ibroadcast info playlist
+
+chroma:
+  auto: yes
+
+acoustid:
+  apikey: {{ pass "acoustid/apikey" }}
+
+replace:
+  '[\\]': ''
+  '[_]': '-'
+  '[/]': '-'
+  '^\.': ''
+  '[\x00-\x1f]': ''
+  '\.$': ''
+  '\s+$': ''
+  '^\s+': ''
+  '’': "'"
+  '′': "'"
+  '"': ''
+  '‐': '-'
+
+duplicates:
+  album: yes
+  count: yes
+  delete: no
+  full: yes
+  path: yes
+  strict: no
+  tidebreak:
+    items: [bitrate]
+
+fetchart:
+  auto: yes
+  minwidth: 1440
+  maxwidth: 7680
+  sources: filesystem coverart albumart bandcamp itunes google wikipedia amazon
+  google_key: {{ pass "beets/google_key" }}
+  google_engine: {{ pass "beets/google_engine" }}
+  quality: 75
+  high_resolution: yes
+
+embedart:
+  auto: yes
+  ifempty: no
+  remove_art_file: no
+  quality: 75
+
+art_filename: cover
+
+ignore: ['System Volume Information']
+ignore_hidden: yes
+
+item_fields:
+  multidisc: 1 if disctotal > 1 else 0
+    #  padded_tracknr: "'{:02n}'.format(track)"
+  first_artist: |
+    import re
+    return re.split(',|\s+(feat(.?|uring)|&|(Vs|Ft).)', albumartist, 1, flags=re.IGNORECASE)[0:1][0]
+  ft_artist: |
+    import re
+    match = re.search(',|\s+(feat(.?|uring)|&|(Vs|Ft).)', artist_credit, flags=re.IGNORECASE)
+    if match:
+      result = artist_credit[match.end():].strip()
+      if result:
+        return result
+    return None
+
+format_item: $original_year %the{$albumartist} - $album - %if{$multidisc,$disc-}$track - $title %if{$ft_artist,ft. $ft_artist}
+
+format_album: $original_year %the{$albumartist} - $album $atypes
+
+sort_item: albumartist+ album+ disc+ track+ artist+
+
+albumtypes:
+  types:
+    - album: 'LP'
+    - lp: 'LP'
+    - ep: 'EP'
+    - single: 'Single'
+    - soundtrack: 'OST'
+    - live: 'Live'
+    - compilation: 'Comp'
+    - remix: 'Remix'
+    - interview: 'Interview'
+    - spokenword: 'Spoken'
+    - dj-mix: 'DJ-mix'
+    - mixtape/street: 'Mixtape'
+    - demo: 'Demo'
+    - 'field recording': 'FR'
+  ignore_va: compilation
+  bracket: '[]'
+
+paths:
+  default: %the{$albumartist}/$original_year $album%aunique{} $atypes/%if{$multidisc,$disc-,}$track - $artist_credit - $title
+  comp: compilations/%the{$albumartist}/$original_year $album%aunique{} $atypes/%if{$multidisc,$disc-,}$track - $artist_credit - $title
+  singleton: $artist/non-albums/$original_year $title
+  genre:Classical: %ifdef{$parent_composer,%the{$parent_composer}/}%ifdef{$parentwork,$parentwork/}%the{$albumartist}/$year - $album%aunique{} $atypes/%if{$multidisc,$disc-,}$track - %if{$artist,$artist,$albumartist} - $title
+  albumtype:soundtrack: soundtracks/$album%aunique{} $atypes/%if{$multidisc,$disc-,}$track - $artist_credit - $title
+
+ui:
+  color: on
+
+threaded: yes
+
+per_disc_numbering: yes
+
+original_date: yes
+
+terminal_encoding: utf_8
+
+discogs:
+  user_token: {{ pass "discogs/user_token" }}
+  index_tracks: yes
+  source_weight: 0.75
+
+parentwork:
+  force: no
+  auto: yes
+
+clutter:
+  [
+    .DS_Store,
+    Thumbs.DB,
+  ]
+
+edit:
+  itemfields: album album_id albumartist albumartist_credit albumartist_sort albumdisambig albumdisambig albumstatus albumtype arranger artist artist_credit artist_sort bitdepth comp composer composer_sort disc disctitle disctotal genre original_year releasegroupdisambig singleton style title track trackdisambig tracktotal work work_disambig year parentwork parentwork_disambig parent_composer parent_composer_sort work_date parentwork_date
+  albumfields: album albumartist albumartist_credit albumartist_sort albumdisambig albumstatus albumtotal albumtype comp disctotal genre label original_year year parentwork parentwork_disambig parent_composer parent_composer_sort work_date parentwork_date
+
+filetote:
+  filenames: cover.jpg cover.jpeg cover.png
+  extensions: .cue .log .jpg .jpeg .png .pdf .nfo .accurip .txt
+  patterns:
+    artworkdir:
+      - "[aA]rtwork/"
+    scans:
+      - "[sS]cans/"
+  paths:
+    filename:cover.jpg: $albumpath/cover
+    filename:cover.jpeg: $albumpath/cover
+    filename:cover.png: $albumpath/cover
+    pattern:artworkdir: $albumpath/artwork
+    pattern:scans: $albumpath/scans
+    ext:.cue: $albumpath/$albumartist - $album
+    ext:.log: $albumpath/$albumartist - $album
+    ext:.jpg: $albumpath/$old_filename
+    ext:.jpeg: $albumpath/$old_filename
+    ext:.png: $albumpath/$old_filename
+    ext:.pdf: $albumpath/$old_filename
+    ext:.nfo: $albumpath/$albumartist - $album
+    ext:.accurip: $albumpath/$albumartist - $album
+    ext:.txt: $albumpath/$old_filename
+  pairing:
+    enabled: true
+
+musicbrainz:
+  searchlimit: 100 #sadly needed because of a bug in musicbrainz search API
+  extra_tags: [year, originalyear, catalognum, country, media, label]
+  ratelimit: 9999
+  host: localhost:5000
+
+mpd:
+  host: localhost
+  port: 6600
+
+types:
+  rating: float
+
+playlist: # needed for beet-ibroadcast
+  auto: no
+  playlist_dir: /home/hearth/.config/mpd/playlists
+  relative_to: /store/music/local
+
+smartplaylist:
+  playlist_dir: ~/.config/mpd/playlists
+  relative_to: /store/music/local
+  playlists:
+    - name: Classics and favorites.m3u
+      query: rating:5
+    - name: Classics.m3u
+      query: rating:4.5
+    - name: Great.m3u
+      query: rating:4
+    - name: Pretty good.m3u
+      query: rating:3.5
+    - name: Nice attempt.m3u
+      query: rating:3
+    - name: Meh.m3u
+      query: rating:2.5
+    - name: Why would you release this.m3u
+      query: rating:2
+    - name: Wish I never hear this again.m3u
+      query: rating:1.5
+    - name: Wish I'd never heard this to begin with.m3u
+      query: rating:1
+    - name: All copies should be destroyed.m3u
+      query: rating:0.5
+    - name: Words fail me.m3u
+      query: rating:0
+    - name: To listen.m3u
+      query: rating::^$
+    - name: Good music (shuffle playlist).m3u
+      query: rating:3.5..5
+
+bandcamp:
+  include_digital_only_tracks: true
+  search_max: 5
+  art: true
+  source_weight: 0.5
+  genre:
+    capitalize: no
+    maximum: 0
+    mode: progressive
+
+replaygain:
+  backend: ffmpeg
+  threads: 24
+  parallel_on_import: yes
+  auto: no
+  r128: Opus Flac Mp3 Web
+
+play:
+  relative_to: /store/music/local
+  command: bash -c 'cat $0 | mpc add'
+
+ibroadcast:
+  username: eisleggje@gmail.com
+  password: "{{ pass "ibroadcast" }}"
