@@ -12,6 +12,19 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 require("lazy").setup({
 	spec = {
+		{ "rebelot/kanagawa.nvim",
+		lazy = false,
+		config = function()
+			vim.o.background = ""
+			require('kanagawa').setup({
+				theme = "wave",
+				transparent = true,
+				colors = { theme = { all = { ui = { bg_gutter = "none", bg = "none"  }}}},
+			})
+			vim.cmd([[colorscheme kanagawa]])
+			vim.api.nvim_set_hl(0, 'StatusLine', { fg = 'NONE' })
+		end,
+		},
 		{ "nvim-telescope/telescope.nvim",
 		dependencies = {
 			{ "nvim-telescope/telescope-fzf-native.nvim",
@@ -48,6 +61,6 @@ require("lazy").setup({
 	},
 	defaults = {
 		lazy = true,
-		},
+	},
 })
 
