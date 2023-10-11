@@ -1,0 +1,8 @@
+#!/bin/fish
+function flacsplit
+  for i in *.cue
+    cuebreakpoints "$i" | sed s/$/0/ | shnsplit -o flac *.flac
+  end
+end
+
+flacsplit
