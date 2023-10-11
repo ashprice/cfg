@@ -7,6 +7,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ","
+vim.wo.number = true
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 require("lazy").setup({
 	spec = {
@@ -14,6 +16,10 @@ require("lazy").setup({
 		dependencies = {
 			{ "nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
+			keys = {
+				{ "<leader>ff", function() require("telescope.builtin").find_files() end, desc = "Find files" },
+				{ "<leader>fg", function() require("telescope.builtin").live_grep() end, desc = "Live grep" },
+			},
 			config = function()
 				require("telescope").load_extension("fzf")
 			end,
@@ -39,6 +45,9 @@ require("lazy").setup({
 		end,
 		ft = 'tex'
 		},
-	}
+	},
+	defaults = {
+		lazy = true,
+		},
 })
 
