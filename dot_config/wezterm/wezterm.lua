@@ -10,7 +10,7 @@ config.tab_bar_at_bottom = true
 config.window_background_opacity = 0.8
 config.text_background_opacity = 0.65
 config.front_end = 'WebGpu'
-config.font = wezterm.font 'Noto Sans Mono'
+config.font = wezterm.font_with_fallback { 'Iosevka Custom', 'Sarasa Term J', 'Sarasa Term K', 'Sarasa Term CL', 'Sarasa Term TC', 'Sarasa Term SC' }
 
 return config
 
