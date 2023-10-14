@@ -7,4 +7,4 @@ end
 
 set -x ANKI_NOHIGHDPI 1
 set -x TZ 'Europe/London'
-exec dwm
+exec xmonad 
