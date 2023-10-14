@@ -31,9 +31,12 @@ config.keys = {
   { key = 't', mods = 'ALT', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
   { key = 't', mods = 'ALT|SHIFT', action = wezterm.action.SpawnTab 'DefaultDomain' },
   { key = 'w', mods = 'ALT', action = wezterm.action.CloseCurrentTab{confirm=true} },
+  { key = 'k', mods = 'ALT', action = wezterm.action.ScrollByLine(-1) },
+  { key = 'j', mods = 'ALT', action = wezterm.action.ScrollByLine(1) },
 }
 for i = 1, 9 do
   table.insert(config.keys, { key = tostring(i), mods = 'ALT', action = wezterm.action.ActivateTab(i - 1), })
 end
+config.font_size = 24.0
 
 return config
