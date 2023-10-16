@@ -2,9 +2,13 @@
 
 if test -f "$HOME/.xprofile"
   source "$HOME/.xprofile"
-  xrdb --merge -I$HOME ~/.Xresources
+  xrdb -merge -I$HOME ~/.Xresources
 end
 
-set -x ANKI_NOHIGHDPI 1
+set -x QT_QPA_PLATFORMTHEME qt6ct
+set -x ANKI_NOHIGHDPI 0
+set -x QT_FONT_DPI 91
+set -x MOZC_IBUS_CANDIDATE_WINDOW ibus
+set -x GTK_THEME Adw-dark
 set -x TZ 'Europe/London'
 exec xmonad 
