@@ -5,11 +5,11 @@ if test -f "$HOME/.xprofile"
   xrdb -merge -I$HOME ~/.Xresources
 end
 
-set -x QT_QPA_PLATFORMTHEME qt6ct
-set -x ANKI_NOHIGHDPI 0
-set -x QT_FONT_DPI 91
-set -x MOZC_IBUS_CANDIDATE_WINDOW ibus
-set -x GTK_THEME adw-gtk3-dark
-set -x FREETYPE_PROPERTIES 'cff:no-stem-darkening=0 autofilter:no-stem-darkening=0'
-set -x TZ 'Europe/London'
+set -gx QT_QPA_PLATFORMTHEME qt6ct
+set -gx ANKI_NOHIGHDPI 0
+set -gx QT_FONT_DPI 91
+set -gx MOZC_IBUS_CANDIDATE_WINDOW ibus
+set -gx GTK_THEME adw-gtk3-dark
+set -gx FREETYPE_PROPERTIES 'cff:no-stem-darkening=0 autofilter:no-stem-darkening=0'
+set -gx TZ 'Europe/London'
 exec xmonad 
