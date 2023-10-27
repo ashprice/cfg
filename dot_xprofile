@@ -6,7 +6,6 @@
 #picom --config ~/.config/picom/picom.conf &
 #dunst &
 #setxkbmap -layout gb &
-#ibus-daemon -drxR &
 #xrdb -load ~/.Xresources &
 #xrandr --dpi 218 &
 if test -n "$xrdbpid"
