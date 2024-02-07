@@ -8,6 +8,6 @@
 #setxkbmap -layout gb &
 #xrdb -load ~/.Xresources &
 #xrandr --dpi 218 &
-if test -n "$xrdbpid"
-  wait "$xrdbpid"
-end
+#if test -n "$xrdbpid"
+#  wait "$xrdbpid"
+#end
