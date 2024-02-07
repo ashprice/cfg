@@ -14,6 +14,7 @@ config.window_frame = {
 config.window_background_opacity = 0.8
 config.text_background_opacity = 0.65
 config.front_end = 'WebGpu'
+config.enable_wayland = true
 config.font = wezterm.font_with_fallback { 'Sarasa Term J', 'Sarasa Term K', 'Sarasa Term CL', 'Sarasa Term TC', 'Sarasa Term SC' }
 config.launch_menu = {
   {
