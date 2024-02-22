@@ -88,6 +88,7 @@ local rep = require("luasnip.extras").rep
 vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump(1) end, {silent = true})
 vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+vim.keymap.set('n', '<leader>L', '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>')
 
 vim.keymap.set({"i", "s"}, "<C-E>", function()
   if ls.choice_active() then
@@ -96,6 +97,7 @@ vim.keymap.set({"i", "s"}, "<C-E>", function()
 end, {silent = true})
 require("luasnip").config.set_config({
   enable_autosnippets = true,
-  update_events = 'TextChanged,TextChangedI'
+  update_events = 'TextChanged,TextChangedI',
+  store_selection_keys = "<Space>",
 })
 require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
