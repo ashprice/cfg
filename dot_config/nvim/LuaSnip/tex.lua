@@ -8,6 +8,12 @@ end
 
 local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
+function line_begin_or_non_letter(line_to_cursor, matched_trigger)
+  local line_begin = line_to_cursor:sub(1, -(#matched_trigger + 1)):match("^%s*$")
+  local non_letter = line_to_cursor:sub(-(#matched_trigger + 1), -(#matched_trigger + 1)):match("[^%a]")
+  return line_begin or non_letter
+end
+
 local tex_utils = {}
 tex_utils.in_mathzone = function()  -- math context detection
   return vim.fn['vimtex#syntax#in_mathzone']() == 1
@@ -34,13 +40,27 @@ tex_utils.in_tikz = function()  -- TikZ picture environment detection
 end
 
 return {
-  s({trig="tt", descr="Expands 'tt' into '\texttt{}'"},
+  s({trig="tt", regTrig=true, wordTrig=false, snippetType='autosnippet', descr="Expands 'tt' into '\texttt{}'"},
   fmta(
     [[
-      \texttt{<>} <>
+      <>\texttt{<>} <>
     ]],
-    { i(1), i(0) }
-  )),
+    { f( function(_, snip) return snip.captures[1] end ), d(1, get_visual), i(0) }
+  ), {condition=line_begin_or_non_letter}),
+  s({trig="tii", regTrig=true, wordTrig=false, snippetType='autosnippet'},
+  fmta(
+    [[
+      <>\textit{<>} <>
+    ]],
+    { f( function(_, snip) return snip.captures[1] end ), d(1, get_visual), i(0) }
+  ), {condition=line_begin_or_non_letter}),
+  s({trig="tbb", regTrig=true, wordTrig=false, snippetType='autosnippet'},
+  fmta(
+    [[
+      <>\textbf{<>} <>
+    ]],
+    { f( function(_, snip) return snip.captures[1] end ), d(1, get_visual), i(0) }
+  ), {condition=line_begin_or_non_letter}),
   s({trig="h1", snippetType = 'autosnippet'},
   fmta(
     [[
@@ -155,4 +175,6 @@ return {
     ]],
     { i(1), i(2), i(3), i(4), i(0) }
   ), {condition=line_begin}),
+  s({trig="ii", snippetType='autosnippet'},
+  { t("\\item")}, {condition=line_begin}),
 }
