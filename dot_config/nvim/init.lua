@@ -16,19 +16,30 @@ vim.opt.expandtab = true
 
 require("lazy").setup({
 	spec = {
-		{ "rebelot/kanagawa.nvim",
-		lazy = false,
-		config = function()
-			vim.o.background = ""
-			require('kanagawa').setup({
-				theme = "dragon",
-				transparent = true,
-				colors = { theme = { all = { ui = { bg_gutter = "none", bg = "none"  }}}},
-			})
-			vim.cmd([[colorscheme kanagawa]])
-			vim.api.nvim_set_hl(0, 'StatusLine', { fg = 'NONE' })
-		end,
-	},
+    { "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("rose-pine").setup({
+        variant = "main",
+        dark_variant = "main",
+        dim_inactive_windows = true,
+        extend_background_behind_borders = true,
+        enable = {
+          terminal = true,
+          legacy_highlights = true,
+          migrations = true,
+        },
+        styles = {
+          bold = true,
+          italic = true,
+          transparency = false,
+        },
+      })
+      vim.cmd.colorscheme "rose-pine"
+    end,
+  },
 	{ "nvim-telescope/telescope.nvim",
 	dependencies = {
 		{ "nvim-telescope/telescope-fzf-native.nvim",
