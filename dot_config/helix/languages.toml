@@ -14,3 +14,19 @@ language-servers = [ "typst-lsp" ]
 
 [language-server.typst-lsp]
 command = "typst-lsp"
+
+[[language]]
+name = "rust"
+scope = "source.rs"
+injection-regex = "^rs$"
+file-types = ["rs"]
+auto-format = true
+roots = ["Cargo.toml", "Cargo.lock"]
+indent = { tab-width = 4, unit = "    " }
+language-servers = [ "rust-analyzer" ]
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
