@@ -68,17 +68,17 @@ mem_as_value = true
 # Displays the network widget with binary prefixes.
 #network_use_binary_prefix = true
 # Displays the network widget using bytes.
-#network_use_bytes = false
+network_use_bytes = true
 # Displays the network widget with a log scale.
 #network_use_log = true
 # Hides advanced options to stop a process on Unix-like systems.
 #disable_advanced_kill = false
 # Shows GPU(s) memory
-#enable_gpu_memory = true
+enable_gpu_memory = true
 # Shows cache and buffer memory
 enable_cache_memory = true
 # How much data is stored at once in terms of time.
-retention = "4320m"
+retention = "600m"
 
 # These are flags around the process widget.
 
