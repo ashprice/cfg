@@ -177,4 +177,48 @@ return {
   ), {condition=line_begin}),
   s({trig="ii", snippetType='autosnippet'},
   { t("\\item")}, {condition=line_begin}),
+  s({trig=";;sel", snippetType='autosnippet', desc="Gives an otherlanguage environment - for longer prose."},
+  fmta(
+    [[
+      \begin{otherlanguage}{<>}
+      <>
+      \end{otherlanguage}
+
+      <>
+    ]],
+    { i(1), i(2), i(0) }
+  ), {condition=line_begin}),
+  s({trig=";;jp", snippetType='autosnippet', descr="Gives a Japanese otherlanguage environment - for longer prose."},
+  fmta(
+    [[
+      \begin{otherlanguage}{japanese}
+      <>
+      \end{otherlanguage}
+
+      <>
+    ]],
+    { i(1), i(0) }
+  ), {condition=line_begin}),
+  s({trig=";sel", snippetType='autosnippet', descr="Gives a foreignlanguage environment - for shorter spans of text."},
+  fmta(
+    [[
+      \foreignlanguage{<>}{<>} <>
+    ]],
+    { i(1), d(2, get_visual), i(0) }
+  ), {condition=line_begin_or_non_letter}),
+  s({trig=";jp", snippetType='autosnippet', descr="Gives a Japanese foreignlanguage environment - for shorter spans of text."},
+  fmta(
+    [[
+      \foreignlanguage{japanese}{<>} <>
+    ]],
+    { d(1, get_visual), i(0) }
+  ), {condition=line_begin_or_non_letter}),
+  s({trig="fn", wordTrig="true", regTrig="false", descr="Footnotes."},
+  fmta(
+  [[
+    \footnote{<>} <>
+  ]],
+  { d(1, get_visual), i{0} }
+  )),
 }
+
