@@ -189,16 +189,16 @@ smartplaylist:
   playlist_dir: ~/.config/mpd/playlists
   relative_to: /store/music/local
   playlists:
-    - name: Classics and favorites.m3u
-      query: rating:5
+    - name: Classics and favourites.m3u
+      query: rating:5 live::^$
     - name: Classics.m3u
-      query: rating:4.5
+      query: rating:4.5 live::^$
     - name: Great.m3u
-      query: rating:4
+      query: rating:4 live::^$
     - name: Pretty good.m3u
-      query: rating:3.5
+      query: rating:3.5 live::^$
     - name: Nice attempt.m3u
-      query: rating:3
+      query: rating:3 live::^$
     - name: Meh.m3u
       query: rating:2.5
     - name: Why would you release this.m3u
@@ -214,7 +214,11 @@ smartplaylist:
     - name: To listen.m3u
       query: rating::^$
     - name: Good music (shuffle playlist).m3u
-      query: rating:3.5..5
+      query: rating:3.5..5 live::^$
+    - name: Live albums I don't want in main playlists.m3u
+      query: rating:3.5..5 live:yes
+    - name: Live albums (actually bad ones).m3u
+      query: rating:0.5..3 live:yes
 
 bandcamp:
   include_digital_only_tracks: true
