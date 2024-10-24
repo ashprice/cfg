@@ -78,7 +78,7 @@ enable_gpu_memory = true
 # Shows cache and buffer memory
 enable_cache_memory = true
 # How much data is stored at once in terms of time.
-retention = "600m"
+retention = "180m"
 
 # These are flags around the process widget.
 
