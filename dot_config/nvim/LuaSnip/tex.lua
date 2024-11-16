@@ -72,6 +72,28 @@ local tab = function(args, snip)
 	return sn(nil, nodes)
 end
 
+local rec_ls
+rec_ls = function()
+  return sn(nil, {
+    c(1, {
+      t({""}),
+      sn(nil, {t({"", "\t\\item "}), i(1), d(2, rec_ls, {})}),
+    }),
+  });
+end
+
+local rec_c
+rec_c = function()
+  return sn(nil, {
+    c(1, {
+      t({""}),
+      sn(nil, {t("["), i(1), t("]{"), i(2), t("}"), d(3, rec_c, {})}),
+      sn(nil, {t("["), i(1), t("]["), i(2), t("]{"), i(3), t("}"), d(4, rec_c, {})}),
+      sn(nil, {t("{"), i(1), t("}"), d(2, rec_c, {})}),
+    }),
+  });
+end
+
 return {
   s({trig="tt", regTrig=true, wordTrig=false, snippetType='autosnippet', descr="Expands 'tt' into '\texttt{}'"},
   fmta(
@@ -106,43 +128,43 @@ return {
   s({trig="hc", snippetType = 'autosnippet'},
   fmta(
     [[
-      \chapter{<>}
+      \chapter<>
 
       <>
     ]],
-    { i(1), i(0) }
+    { c(1, {sn(nil, {t("{"), i(1), t("}")}), sn(nil, {t("{"), i(1, "rep"), t("}\\label{chap:"), rep(1, "rep"), t("}")}), sn(nil, {t("{"), i(1, "diff"), t("}\\label{chap:"), i(2, "diff"), t("}")})}), i(0) }
   ), {condition = line_begin}),
   s({trig="h1", snippetType = 'autosnippet'},
   fmta(
-    [[
-      \section{<>}
+  [[
+    \section<>
 
-      <>
-    ]],
-    { i(1), i(0) }
+    <>
+  ]],
+  { c(1, {sn(nil, {t("{"), i(1), t("}")}), sn(nil, {t("{"), i(1, "rep"), t("}\\label{sec:"), rep(1, "rep"), t("}")}), sn(nil, {t("{"), i(1, "diff"), t("}\\label{sec:"), i(2, "diff"), t("}")})}), i(0) }
   ), {condition = line_begin}),
   s({trig="h2", snippetType = 'autosnippet'},
   fmta(
     [[
-      \subsection{<>}
+      \subsection<>
 
       <>
     ]],
-    { i(1), i(2) }
+    { c(1, {sn(nil, {t("{"), i(1), t("}")}), sn(nil, {t("{"), i(1, "rep"), t("}\\label{sec:"), rep(1, "rep"), t("}")}), sn(nil, {t("{"), i(1, "diff"), t("}\\label{sec:"), i(2, "diff"), t("}")})}), i(0) }
   ), {condition = line_begin}),
   s({trig=",c", snippetType = 'autosnippet'},
   fmta(
     [[
-      \cite[<>]{<>} <>
+      \cite<> <>
     ]],
-    { i(1), i(2), i(0) }
+    { c(1, {sn(nil, {t("["), i(1), t("]{"), i(2), t("}")}), sn(nil, {t("s("), i(1), t(")()"), c(2, {sn(nil, {t("["), i(1), t("]{"), i(2), t("}"), d(3, rec_c, {})}), sn(nil, {t("["), i(1), t("]["), i(2), t("]{"), i(3), t("}"), d(4, rec_c, {})})})})}), i(0)}
   )),
   s({trig=",p", snippetType = 'autosnippet'},
   fmta(
     [[
-      \parencite[<>]{<>} <>
+      \parencite<> <>
     ]],
-    { i(1), i(2), i(0) }
+    { c(1, {sn(nil, {t("["), i(1), t("]{"), i(2), t("}")}), sn(nil, {t("s("), i(1), t(")()"), c(2, {sn(nil, {t("["), i(1), t("]{"), i(2), t("}"), d(3, rec_c, {})}), sn(nil, {t("["), i(1), t("]["), i(2), t("]{"), i(3), t("}"), d(4, rec_c, {})})})})}), i(0)}
   )),
   s({trig=",f", snippetType = 'autosnippet'},
   fmta(
@@ -343,15 +365,6 @@ return {
 		function(snip) snip.rows = math.max(snip.rows - 1, 1) end
 	  }
   } )})),
-  s({trig="##"},
-  fmta(
-  [[
-    \section{<>}<>
-    
-    <>
-  ]],
-  { i(1), c(2, {t(""), sn(nil, {t("\\label{sec:"), i(1), t("}")})}), i(0) }
-  )),
 }
 
 
