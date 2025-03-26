@@ -16,6 +16,26 @@ vim.opt.expandtab = true
 
 require("lazy").setup({
 	spec = {
+    { "echasnovski/mini.pairs",
+    lazy = false,
+    opts = {
+      mappings = {
+        ["'"] = { neigh_pattern = "[^%a\\|<|&]." },
+        ["|"] = { action = "closeopen", pair="||", neigh_pattern = "[(][)]", register = { cr = false } },
+      },
+    },
+    },
+    { "loctvl842/monokai-pro.nvim",
+    name = "monokai-pro.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("monokai-pro").setup({
+        filter = "classic",
+      })
+      vim.cmd.colorscheme "monokai-pro"
+    end,
+    },
     { "rose-pine/neovim",
     name = "rose-pine",
     lazy = false,
@@ -37,7 +57,6 @@ require("lazy").setup({
           transparency = false,
         },
       })
-      vim.cmd.colorscheme "rose-pine"
     end,
   },
 	{ "nvim-telescope/telescope.nvim",
