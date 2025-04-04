@@ -1,0 +1,8 @@
+[Unit]
+Description=Keep audio alive
+
+[Service]
+ExecStart=/usr/bin/play -n -c2 synth sin gain
+
+[Install]
+WantedBy=default.target
