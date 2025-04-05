@@ -1,6 +1,6 @@
 #!/bin/fish
 function conmp3
-  find . -type f -name "*.flac" -print0 | parallel -0 --eta ffmpeg -threads 24 -i {} -c:a libmp3lame -q:a 0 -preset slow (basename {} .flac).mp3
+  fd -0 -t f '.*.flac$' | parallel -0 --eta ffmpeg -i {} -c:a libmp3lame -q:a 0 --preset slow (basename {} .flac).mp3
 end
 
 conmp3
