@@ -1,84 +1,30 @@
-# This is a default config file for bottom.  All of the settings are commented
-# out by default; if you wish to change them uncomment and modify as you see
-# fit.
+[disk]
+columns = ["Disk", "Mount", "Used", "Free", "Total", "Used%", "R/s", "W/s"]
 
-# This group of options represents a command-line flag/option.  Flags explicitly
-# added when running (ie: btm -a) will override this config file if an option
-# is also set here.
+[disk.mount_filter]
+is_list_ignored = true
+list = ["/home/hearth/.*", "/store/snapshots"]
+regex = true
 
 [flags]
-# Whether to hide the average cpu entry.
-#hide_avg_cpu = false
-# Whether to use dot markers rather than braille.
-#dot_marker = false
-# The update rate of the application.
+cpu_left_legend = true
+current_usage = false
+group_processes = true
 rate = "250"
-# Whether to put the CPU legend to the left.
-#left_legend = false
-# Whether to set CPU% on a process to be based on the total CPU or just current usage.
-#current_usage = true
-# Whether to set CPU% on a process to be based on the total CPU or per-core CPU% (not divided by the number of cpus).
-unnormalized_cpu = false
-# Whether to group processes with the same name together by default.
-#group_processes = false
-# Whether to make process searching case sensitive by default.
-#case_sensitive = false
-# Whether to make process searching look for matching the entire word by default.
-#whole_word = false
-# Whether to make process searching use regex by default.
-#regex = false
-# Defaults to Celsius.  Temperature is one of:
-#temperature_type = "k"
-#temperature_type = "f"
-#temperature_type = "c"
-#temperature_type = "kelvin"
-#temperature_type = "fahrenheit"
-#temperature_type = "celsius"
-# The default time interval (in milliseconds).
+temperature_type = "c"
+unnormalized_cpu = true
 default_time_value = "150000"
-# The time delta on each zoom in/out action (in milliseconds).
-#time_delta = 15000
-# Hides the time scale.
-#hide_time = false
-# Override layout default widget
-#default_widget_type = "proc"
-#default_widget_count = 1
-# Expand selected widget upon starting the app
-#expanded_on_startup = true
-# Use basic mode
-#basic = false
-# Use the old network legend style
-#use_old_network_legend = false
-# Remove space in tables
 hide_table_gap = true
-# Show the battery widgets
-#battery = false
-# Disable mouse clicks
-#disable_click = false
-# Built-in themes.  Valid values are "default", "default-light", "gruvbox", "gruvbox-light", "nord", "nord-light"
-#color = "default"
-# Show memory values in the processes widget as values by default
 mem_as_value = true
-# Show tree mode by default in the processes widget.
-#tree = false
-# Shows an indicator in table widgets tracking where in the list you are.
-#show_table_scroll_position = false
-# Show processes as their commands by default in the process widget.
-#process_command = false
-# Displays the network widget with binary prefixes.
-#network_use_binary_prefix = true
-# Displays the network widget using bytes.
 network_use_bytes = true
-# Displays the network widget with a log scale.
-#network_use_log = true
-# Hides advanced options to stop a process on Unix-like systems.
-#disable_advanced_kill = false
-# Shows GPU(s) memory
+network_use_log = true
 enable_gpu_memory = true
-# Shows cache and buffer memory
 enable_cache_memory = true
-# How much data is stored at once in terms of time.
-retention = "180m"
+process_memory_as_value = true
+retention = "10m"
+
+[processes]
+columns = ["PID", "name", "cpu%", "Mem%", "gpu%", "read", "write", "tread", "twrite", "User"]
 
 # These are flags around the process widget.
 
@@ -159,32 +105,3 @@ retention = "180m"
     type="proc"
     default=true
 
-# Filters - you can hide specific temperature sensors, network interfaces, and disks using filters.  This is admittedly
-# a bit hard to use as of now, and there is a planned in-app interface for managing this in the future:
-#[disk_filter]
-#is_list_ignored = true
-#list = ["/dev/mapper/swap"]
-#regex = true
-#case_sensitive = false
-#whole_word = false
-
-[mount_filter]
-#is_list_ignored = true
-list = ["/swap", "/home", "/var/log", "/var/cache/pacman"]
-#regex = true
-#case_sensitive = false
-#whole_word = false
-
-#[temp_filter]
-#is_list_ignored = true
-#list = ["cpu", "wifi"]
-#regex = false
-#case_sensitive = false
-#whole_word = false
-
-#[net_filter]
-#is_list_ignored = true
-#list = ["virbr0.*"]
-#regex = true
-#case_sensitive = false
-#whole_word = false
