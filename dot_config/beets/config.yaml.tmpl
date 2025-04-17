@@ -17,7 +17,7 @@ chroma:
   auto: yes
 
 acoustid:
-  apikey: {{ pass "acoustid/apikey" }}
+  apikey: {{ (keepassxc "/acoustid - apikey").Password }}
 
 replace:
   '[\\]': ''
@@ -48,8 +48,8 @@ fetchart:
   minwidth: 1440
   maxwidth: 7680
   sources: filesystem coverart albumart bandcamp itunes google wikipedia amazon
-  google_key: {{ pass "beets/google_key" }}
-  google_engine: {{ pass "beets/google_engine" }}
+  google_key: {{ (keepassxc "/beets - google_key").Password }}
+  google_engine: {{ (keepassxc "/beets - google_engine").Password }}
   quality: 75
   high_resolution: yes
 
@@ -123,7 +123,7 @@ original_date: yes
 terminal_encoding: utf_8
 
 discogs:
-  user_token: {{ pass "discogs/user_token" }}
+  user_token: {{ (keepassxc "/discogs - user token").Password }}
   index_tracks: yes
   source_weight: 0.75
 
@@ -242,6 +242,6 @@ play:
   command: bash -c 'cat $0 | mpc add'
 
 ibroadcast:
-  username: eisleggje@gmail.com
-  password: "{{ pass "ibroadcast" }}"
+  username: {{ (keepassxc "/ibroadcast").UserName }}
+  password: "{{ (keepassxc "/ibroadcast").Password }}"
 
