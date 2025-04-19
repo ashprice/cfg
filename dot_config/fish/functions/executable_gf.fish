@@ -47,14 +47,14 @@ Trashing items:
    if set -ql _flag_s
       gtrash prune --day 30
     else
-      gtrash find -S --size-large 500M | fzf --multi | awk -F'\t' '{print $3}' | xargs -o -r gtrash rm
+      gtrash find -S --size-large 500M | fzf --multi | awk -F'\t' '{print $3}' | xargs -d '\n' -o -r gtrash rm
     end
   else if set -ql _flag_r
     set cmd gtrash find -S
     if set -ql _flag_c
       set cmd $cmd --cwd
     end
-    $cmd | fzf --multi | awk -F'\t' '{print $3}' | xargs -o -r gtrash restore
+    $cmd | fzf --multi | awk -F'\t' '{print $3}' | xargs -d '\n' -o -r gtrash restore
   else if set -ql _flag_g
     gtrash restore-group
   else if set -ql _flag_d
@@ -62,7 +62,7 @@ Trashing items:
     if set -ql _flag_c
       set cmd $cmd --cwd
     end
-    $cmd | fzf --multi | awk -F'\t' '{print $3}' | xargs -o -r gtrash rm
+    $cmd | fzf --multi | awk -F'\t' '{print $3}' | xargs -d '\n' -o -r gtrash rm
   else
     if test -z "$argv"
       echo "Expected at least one argument"
