@@ -1,7 +1,10 @@
 #!/bin/fish
 function flacsplit
-  for i in *.cue
-    cuebreakpoints "$i" | sed s/$/0/ | shnsplit -o flac *.flac
+  set cue (fd -t f '.*.cue$')
+  if test -n "$cue"
+    cuebreakpoints "$cue" | sd '$' '0' | shnsplit -o flac *.flac
+  else
+    echo "No .cue files found"
   end
 end
 
