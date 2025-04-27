@@ -29,7 +29,7 @@ function bms
     --delimiter : \
     --preview 'bat --color=always {1} --highlight-line {2}' \
     --preview-window 'up,80%,border-line,+{2}+3/3,~3' \
-    --bind 'enter:become(nb open {1})' \
+    --bind 'enter:become(xdg-open "$(cat {1} | rg --multiline \'^# nb.*\n\n.*\' | sd \'^#.*\' \'\' | sd \'\n\' \'\' | sd \'^<\' \'\' | sd \'>$\' \'\')")' \
     --bind 'ctrl-o:become(nb show {1} -r)'
 
 end
