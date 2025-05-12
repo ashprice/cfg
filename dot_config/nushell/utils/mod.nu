@@ -25,26 +25,29 @@ export def recurs [] {
   let children = (
     open ~/.task/taskchampion.sqlite3
     | query db $"select uuid, data from tasks where json_extract\(data, '$.parent') in ($parentids)"
-    | par-each {|i| { uuid: $i.uuid, data: ($i.data | from json) }}
-    | flatten
-    | where status == "pending"
-    | group-by parent
-    | transpose
-    | par-each {
-      update column1 {
-        $in
-        | where (
-          ($it.due | into int | $in * 1000000000) < ($today | into int)
-        )
-        | sort-by due
-        | skip 1
+    | par-each {|i|
+      let data = $i.data | from json
+      {
+        uuid: $i.uuid,
+        parent: $data.parent,
+        due: $data.due,
+        status: $data.status
       }
     }
-    | get column1
+    | where status == "pending"
+    | group-by parent
+    | values
+    | par-each {|i|
+      $i
+      | where ($it.due | into int | $in * 1000000000) < ($today | into int)
+      | sort-by due
+      | skip 1
+      | get uuid 
+    }
     | flatten
-    | get uuid
-    | str join ' '   
-  )
+    | str join ' '
+  )  
+  
   task rc.confirmation=0 rc.recurrence.confirmation=0 rc.bulk=0 $children delete 
 }
 
