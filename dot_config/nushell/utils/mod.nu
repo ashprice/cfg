@@ -30,7 +30,8 @@ export def twdensity [] {
     | get uuid
     | str join ' '
   )
-  if ($clear_density != '' and $clear_density != null) {
+
+  if ($clear_density | is-not-empty) {
     task rc.bulk=0 rc.recurrence.confirmation=0 rc.confirmation=0 $clear_density mod density:""
   }
 
@@ -118,7 +119,7 @@ export def twdensity [] {
   )
 
   if (($prior_count | is-not-empty) and ($prior_ids | is-not-empty)) {
-    task rc.confirmation=0 rc.recurrence.confirmation=0 rc.bulk=0 $prior_ids mod density:$"($prior_count)"
+    task rc.confirmation=0 rc.recurrence.confirmation=0 rc.bulk=0 $prior_ids mod density:($prior_count)
   }
 
   let current = (
@@ -147,7 +148,7 @@ export def twdensity [] {
     | group-by count
     | values
     | each {
-      task rc.recurrence.confirmation=0 rc.bulk=0 rc.confirmation=0 ($in | get uuid | str join ' ') mod density:($in.count | get 0)
+      task rc.recurrence.confirmation=0 rc.bulk=0 rc.confirmation=0 ($in | get uuid | str join ' ') mod density:($in.count | get 0) | print
     }
   }
 
