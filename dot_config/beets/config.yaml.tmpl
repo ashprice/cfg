@@ -1,6 +1,7 @@
 directory: /store/music/local
 library: /home/hearth/.config/beets/library.db
 
+
 import:
   move: yes
   write: yes
@@ -10,7 +11,7 @@ import:
   autotag: yes
   duplicate_action: ask
 
-plugins: the chroma fromfilename fetchart bandcamp embedart scrub discogs edit mbsync parentwork fish albumtypes types filetote duplicates smartplaylist mpdupdate inline replaygain play fuzzy ibroadcast info playlist
+plugins: musicbrainz the chroma fromfilename fetchart bandcamp embedart scrub discogs edit mbsync parentwork fish albumtypes types filetote duplicates smartplaylist mpdupdate inline replaygain play fuzzy mpdstats ibroadcast info playlist
 chroma:
   auto: yes
 
@@ -19,6 +20,8 @@ acoustid:
 
 replace:
   '[\\]': ''
+  '[\\/]': ''
+  '[<>:"\?\*\|]': ''
   '[_]': '-'
   '[/]': '-'
   '^\.': ''
@@ -48,6 +51,8 @@ fetchart:
   sources: filesystem coverart albumart bandcamp itunes google wikipedia amazon
   google_key: {{ (keepassxc "/beets - google_key").Password }}
   google_engine: {{ (keepassxc "/beets - google_engine").Password }}
+  fanarttv_key: {{ (keepassxc "/fanarttv - apikey").Password }}
+  store_source: yes
   quality: 75
   high_resolution: yes
 
@@ -110,7 +115,7 @@ paths:
   albumtype:soundtrack: soundtracks/$album%aunique{} $atypes/%if{$multidisc,$disc-,}$track - $artist_credit - $title
 
 ui:
-  color: on
+  color: yes
 
 threaded: yes
 
@@ -166,14 +171,21 @@ filetote:
     enabled: true
 
 musicbrainz:
-  searchlimit: 100 #sadly needed because of a bug in musicbrainz search API
+  search_limit: 500 #sadly needed because of a bug in musicbrainz search API
   extra_tags: [year, originalyear, catalognum, country, media, label]
   ratelimit: 9999
   host: localhost:5000
+  external_ids:
+    discogs: yes
+    spotify: yes
+    bandcamp: yes
+    tidal: yes
 
 mpd:
   host: localhost
   port: 6600
+  rating: yes
+  music_directory: /store/music/local
 
 types:
   rating: float
@@ -232,6 +244,7 @@ replaygain:
   backend: ffmpeg
   threads: 24
   parallel_on_import: yes
+  overwrite: yes
   auto: no
   r128: Opus Flac Mp3 Web
 
