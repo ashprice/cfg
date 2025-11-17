@@ -1,8 +1,40 @@
+#sidebar-header {
+  display: none !important;
+}
+
 .newtab-button-box {
-  display: none;
+  display: none !important;
+}
+
+#tabbar:not(.overflow) .after-tabs {
+  display: none !important;
+}
+
+#tabbar.overflow ~ .after-tabs {
+  display: none !important;
+}
+
+#tabbar .after-tabs {
+  display: none !important;
+}
+
+.newtab-button-box {
+  display: none !important;
 }
 
 #tabbar {
   bottom: 0 !important;
 }
 
+#tabbrowser-tabs {
+  visibility: collapse !important;
+  min-height: 0 !important;
+}
+
+tab {
+  display: none !important;
+}
+
+.titlebar-close {
+  display: none !important;
+}
