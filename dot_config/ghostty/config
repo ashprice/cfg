@@ -1,0 +1,12 @@
+quit-after-last-window-closed = false
+font-family = "Sarasa Mono J"
+font-size = 18
+grapheme-width-method = unicode
+theme = Monokai Remastered
+cursor-style = block
+mouse-hide-while-typing = true
+scrollback-limit = 32000000000
+class = "ghostty"
+window-decoration = none
+window-theme = ghostty
+image-storage-limit = 4294967295
