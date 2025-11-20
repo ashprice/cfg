@@ -1,0 +1,10 @@
+max-history=100
+font=Sarasa Mono J 18
+background-color=#2D2A2E
+text-color=#F8F8F2
+border-color=#5F9EA0
+progress-color=source #6A8E23
+default-timeout=60000
+max-visible=-1
+width=450
+height=150
