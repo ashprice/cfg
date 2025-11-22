@@ -16,7 +16,7 @@ chroma:
   auto: yes
 
 acoustid:
-  apikey: {{ (keepassxc "/acoustid - apikey").Password }}
+  apikey: {{ (keepassxc "/please sort and replace/acoustid - apikey").Password }}
 
 replace:
   '[\\]': ''
@@ -49,9 +49,9 @@ fetchart:
   minwidth: 1200
   maxwidth: 7680
   sources: filesystem coverart fanarttv bandcamp itunes google wikipedia amazon albumart
-  google_key: {{ (keepassxc "/beets - google_key").Password }}
-  google_engine: {{ (keepassxc "/beets - google_engine").Password }}
-  fanarttv_key: {{ (keepassxc "/fanarttv - apikey").Password }}
+  google_key: {{ (keepassxc "/please sort and replace/beets - google_key").Password }}
+  google_engine: {{ (keepassxc "/please sort and replace/beets - google_engine").Password }}
+  fanarttv_key: {{ (keepassxc "/please sort and replace/fanarttv - apikey").Password }}
   store_source: yes
   quality: 75
   high_resolution: yes
@@ -126,7 +126,7 @@ original_date: yes
 terminal_encoding: utf_8
 
 discogs:
-  user_token: {{ (keepassxc "/discogs - user token").Password }}
+  user_token: {{ (keepassxc "/please sort and replace/discogs - user token").Password }}
   index_tracks: yes
   data_source_mismatch_penalty: 0.75
 
@@ -253,6 +253,6 @@ play:
   command: bash -c 'cat $0 | mpc add'
 
 ibroadcast:
-  username: {{ (keepassxc "/ibroadcast").UserName }}
-  password: "{{ (keepassxc "/ibroadcast").Password }}"
+  username: {{ (keepassxc "/please sort and replace/ibroadcast").UserName }}
+  password: "{{ (keepassxc "/please sort and replace/ibroadcast").Password }}"
 
