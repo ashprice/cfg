@@ -1,6 +1,6 @@
 {{- if .feats.alacritty -}}
 [shell]
-program = "/usr/bin/fish"
+program = {{ if eq .shell "fish" }}"/usr/bin/fish"{{ else if eq .shell "bash" }}"/usr/bin/bash"{{else if eq .shell "nu" }}"/usr/bin/nu"{{ end }}
 
 [window]
 decorations_theme_variant = "Dark"
