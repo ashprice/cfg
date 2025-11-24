@@ -1,0 +1,21 @@
+{{ if eq .feats.xorg "true" }}
+#!/usr/bin/nu
+
+# haven't tested this yet lol
+
+let xprofile_path = $"($env.home)/.xprofile"
+if ($xprofile_path | path exists) {
+	source $xprofile_path
+	xrdb -merge $"-I($env.home)" ~/.Xresources
+}
+
+load-env {
+	"QT_QPA_PLATFORMTHEME": "qt6ct",
+	"ANKI_NOHIGHDPI": "0",
+	"QT_FONT_DPI": "91",
+	"MOZC_IBUS_CANDIDATE_WINDOW": "ibus",
+	"FREETYPE_PROPERTIES": "cff:no-stem-darkening=0 autofilter:no-stem-darkening=0",
+	"TZ": "Europe/London"
+}
+run-external "xmonad"
+{{ end }}
