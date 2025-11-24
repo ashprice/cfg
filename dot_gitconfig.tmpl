@@ -1,0 +1,10 @@
+[user]
+  email = gitcommit1@sl.ashprice.co.uk
+  name = ashprice
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEne6dk6onLFteVOC0f+J1aw0iKWlFLy/UvI6IvM6rje
+[core]
+{{- if eq .editor "nvim" }}
+	editor = nvim
+{{- else if eq .editor "helix" }}
+	editor = helix
+{{ end }}
