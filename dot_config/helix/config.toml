@@ -1,17 +1,24 @@
-theme = "monokai"
+theme = "base16_default_dark"
 
 [editor]
 bufferline = "multiple"
 color-modes = true
 text-width = 120
+trim-final-newlines = true
+trim-trailing-whitespace = true
 
 [editor.soft-wrap]
 enable = true
 wrap-at-text-width = true
 
 [editor.statusline]
-right = ["diagnostics", "selections", "position", "position-percentage",
-    "total-line-numbers", "file-encoding"]
+# This is the default
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+# This is also the default
+center = []
+# Added position-percentage, total-line-numbers and file-type
+right = ["diagnostics", "selections", "primary-selection-length", "position", "position-percentage",
+    "total-line-numbers", "file-type", "file-encoding"]
 
 [editor.cursor-shape]
 normal = "block"
@@ -25,5 +32,3 @@ select = "block"
 '"' = '"'
 '`' = '`'
 '<' = '>'
-
-
