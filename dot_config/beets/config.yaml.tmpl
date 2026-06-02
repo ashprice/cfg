@@ -48,7 +48,16 @@ fetchart:
   auto: yes
   minwidth: 1200
   maxwidth: 7680
-  sources: filesystem coverart fanarttv bandcamp itunes google wikipedia amazon albumart
+  sources:
+    - filesystem
+    - coverart
+    - fanarttv
+    - bandcamp
+    - itunes
+    - google
+    - wikipedia
+    - amazon
+    - albumart
   google_key: {{ (keepassxc "/please sort and replace/beets - google_key").Password }}
   google_engine: {{ (keepassxc "/please sort and replace/beets - google_engine").Password }}
   fanarttv_key: {{ (keepassxc "/please sort and replace/fanarttv - apikey").Password }}
@@ -255,4 +264,3 @@ play:
 ibroadcast:
   username: {{ (keepassxc "/please sort and replace/ibroadcast").UserName }}
   password: "{{ (keepassxc "/please sort and replace/ibroadcast").Password }}"
-
