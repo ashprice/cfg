@@ -34,3 +34,6 @@ command = "clippy"
 [[language]]
 name = "haskell"
 
+[[language]]
+name = "fish"
+language-servers = [ "fish-lsp" ]
